@@ -6,29 +6,24 @@
 #define TEST_BUILD_NODE_H
 
 template <typename T>
-class Queue;
-
-template <typename T>
 class Stack;
+template <typename T>
+class Queue;
 
 template <class T>
 class Node {
-    friend class Queue<T>;
     friend class Stack<T>;
+    friend class Queue<T>;
 
     private:
         T e;
         Node<T> *next;
+
     public:
         explicit Node(T e) {
             this->e = e;
             this->next = nullptr;
         }
-
-//        Node(T e, Node<T> *next) {
-//            this->e = e;
-//            this->next = next;
-//        }
 
         T get_data() {
             return e;

@@ -7,6 +7,7 @@
 #define MAXV 10
 
 #include "../queue/Queue.h"
+#include "../stack/Stack.h"
 
 class Graph {
     class Edgenode {
@@ -55,8 +56,8 @@ public:
         initialize_search(processed, discovered, parent);
 
         Queue<int> *queue = new Queue<int>();
-        int v; // current top
-        int y; // next top
+        int v; // current vertex
+        int y; // next vertex
         Edgenode *p;
         queue->add(start);
         while(!queue->is_empty()) {
@@ -69,6 +70,37 @@ public:
                 if (!processed[y] && directed) process_edge(v, y);
                 if (!discovered[y]) {
                     queue->add(y);
+                    discovered[y] = true;
+                    parent[y] = v;
+                }
+                p = p->next;
+            }
+            process_vertex_late(v);
+        }
+    }
+
+    void dfs(int start) {
+        bool processed[MAXV + 1];
+        bool discovered[MAXV + 1];
+        int parent[MAXV + 1];
+
+        initialize_search(processed, discovered, parent);
+
+        Stack<int> *stack = new Stack<int>();
+        int v; // current vertex
+        int y; // next vertex
+        Edgenode *p;
+        stack->push(start);
+        while(!stack->is_empty()) {
+            v = stack->pop().get_data();
+            process_vertex_early(v);
+            processed[v] = true;
+            p = this->edges[v];
+            while (p != nullptr) {
+                y = p->y;
+                if (!processed[y] && directed) process_edge(v, y);
+                if (!discovered[y]) {
+                    stack->push(y);
                     discovered[y] = true;
                     parent[y] = v;
                 }
@@ -136,7 +168,6 @@ private:
     }
 
     void process_vertex_late(int v) {
-
     }
 };
 

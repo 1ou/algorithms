@@ -2,8 +2,8 @@
 // Created by root on 31/01/19.
 //
 
-#ifndef TEST_BUILD_QUEUE_H
-#define TEST_BUILD_QUEUE_H
+#ifndef TEST_BUILD_STACK_H
+#define TEST_BUILD_STACK_H
 
 #include "../base/Node.h"
 
@@ -57,4 +57,4 @@ public:
 };
 
 
-#endif //TEST_BUILD_QUEUE_H
+#endif //TEST_BUILD_STACK_H
