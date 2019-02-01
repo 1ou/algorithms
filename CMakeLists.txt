@@ -30,3 +30,7 @@ target_link_libraries(runGraphTests ${GTEST_LIBRARIES} pthread)
 # Link runTests with what we want to test and the GTest and pthread library
 add_executable(runQueueTests ./queue/TestQueue.cpp)
 target_link_libraries(runQueueTests ${GTEST_LIBRARIES} pthread)
+
+# Link runTests with what we want to test and the GTest and pthread library
+add_executable(runStackTests ./stack/TestStack.cpp)
+target_link_libraries(runStackTests ${GTEST_LIBRARIES} pthread)

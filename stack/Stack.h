@@ -8,36 +8,34 @@
 #include "../base/Node.h"
 
 template <typename T>
-class Queue {
+class Stack {
 
 private:
     int size;
     Node<T> *start;
 
-    void add(T e, Node<T> *n) {
-        if (n->next == nullptr) {
-            n->next = new Node(e);
-            this->size++;
-        } else {
-            add(e, n->get_next());
-        }
-    }
-
 public:
-    void add(T e) {
+    void push(T e) {
         if (this->size == 0) {
             this->start = new Node(e);
             this->size++;
         } else {
-            add(e, this->start);
+            Node<T> *tmp = start;
+            start = new Node(e);
+            start->set_next(tmp);
+            this->size++;
         }
     }
 
-    Node<T> get() {
+    Node<T> pop() {
         Node<T> *tmp = this->start;
         this->start = start->next;
         this->size--;
         return *tmp;
+    }
+
+    Node<T> peek() {
+        return *this->start;
     }
 
     void print() {

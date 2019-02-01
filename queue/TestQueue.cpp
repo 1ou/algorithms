@@ -16,7 +16,7 @@ TEST(TestQueueAddAndGet, PositiveNos) {
     queue->add(7);
     queue->get();
 
-    EXPECT_TRUE(queue->get().getData() == 5);
+    EXPECT_TRUE(queue->get().get_data() == 5);
     EXPECT_TRUE(queue->get_size() == 2);
 
     queue->get();

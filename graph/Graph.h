@@ -4,19 +4,19 @@
 
 #ifndef TEST_BUILD_GRAPH_H
 #define TEST_BUILD_GRAPH_H
-#define MAXV 1000
+#define MAXV 10
 
 #include "../queue/Queue.h"
 
 class Graph {
     class Edgenode {
     public:
-        int y;
+        int y; // info about contiguity
         int weight;
         Edgenode *next;
 
         Edgenode(int y, int weight, Edgenode *edgenode) {
-            this-> y = y;
+            this->y = y;
             this->weight = weight;
             this->next = edgenode;
         }
@@ -52,18 +52,15 @@ public:
         bool discovered[MAXV + 1];
         int parent[MAXV + 1];
 
-        for(int i = 0; i <= MAXV; i++) {
-            processed[i] = discovered[i] = false;
-            parent[i] = -1;
-        }
-        
+        initialize_search(processed, discovered, parent);
+
         Queue<int> *queue = new Queue<int>();
         int v; // current top
         int y; // next top
         Edgenode *p;
         queue->add(start);
         while(!queue->is_empty()) {
-            v = queue->get().getData();
+            v = queue->get().get_data();
             process_vertex_early(v);
             processed[v] = true;
             p = this->edges[v];
@@ -78,6 +75,23 @@ public:
                 p = p->next;
             }
             process_vertex_late(v);
+        }
+    }
+
+    void connected_components() {
+        bool processed[MAXV + 1];
+        bool discovered[MAXV + 1];
+        int parent[MAXV + 1];
+
+        int c = 0; // number of component
+        this->initialize_search(processed, discovered, parent);
+        for (int i = 1; i <= this->nvertices; i++) {
+            if (!discovered[i]) {
+                c++;
+                std::cout << "Component: " << c << std::endl;
+                this->bfs(i);
+                std::cout << std::endl;
+            }
         }
     }
 
@@ -104,6 +118,13 @@ private:
         this->degree[x]++;
         if (!directed) insert_edge(y, x, true);
         else this->nedges++;
+    }
+
+    void initialize_search(bool *processed, bool *discovered, int *parent) {
+        for(int i = 0; i <= MAXV; i++) {
+            processed[i] = discovered[i] = false;
+            parent[i] = -1;
+        }
     }
 
     void process_vertex_early(int v) {

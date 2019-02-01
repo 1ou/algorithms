@@ -8,25 +8,38 @@
 template <typename T>
 class Queue;
 
+template <typename T>
+class Stack;
+
 template <class T>
 class Node {
     friend class Queue<T>;
+    friend class Stack<T>;
 
     private:
         T e;
-        Node *next;
+        Node<T> *next;
     public:
         explicit Node(T e) {
             this->e = e;
             this->next = nullptr;
         }
 
-        T getData() {
+//        Node(T e, Node<T> *next) {
+//            this->e = e;
+//            this->next = next;
+//        }
+
+        T get_data() {
             return e;
         }
 
-        Node *getNext() {
+        Node<T> *get_next() {
             return this->next;
+        }
+
+        void set_next(Node<T> *next) {
+            this->next = next;
         }
 };
 

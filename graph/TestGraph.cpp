@@ -20,6 +20,11 @@ TEST(TestBFS, PositiveNos) {
     EXPECT_TRUE(0 == 0);
 }
 
+TEST(TestConnectedComponents, PositiveNos) {
+    graph->connected_components();
+    EXPECT_TRUE(0 == 0);
+}
+
 int main(int argc, char **argv) {
     graph = new Graph();
     testing::InitGoogleTest(&argc, argv);
